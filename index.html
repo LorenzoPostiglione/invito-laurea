@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invito di Laurea</title>
+    <title>Invito di Laurea - Sabrina</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         body {
@@ -131,7 +131,7 @@
 
         .card-inner {
             border: 1px solid #d4af37; 
-            padding: 50px 20px;
+            padding: 40px 20px;
         }
 
         /* ANIMAZIONI DI ENTRATA TESTO */
@@ -147,28 +147,45 @@
         }
 
         /* Stili Testo */
-        .laurel-icon {
-            font-size: 3rem;
-            margin-bottom: 5px;
-        }
-
         h1.cursive-title {
             font-family: 'Great Vibes', cursive;
             font-size: 4rem;
             margin: 10px 0 20px 0;
-            color: #8c1c2b;
+            color: #cc0000; /* Rosso Laurea */
             font-weight: normal;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 25px auto;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
         }
 
         .subtitle {
             font-size: 1.1rem;
             color: #444;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.6;
         }
 
+        .section-divider {
+            border: 0;
+            border-top: 1px solid #d4af37;
+            margin: 35px 10%;
+        }
+
         .name {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 600;
             margin-bottom: 5px;
             color: #222;
@@ -176,17 +193,13 @@
         }
 
         .degree {
-            font-size: 1.1rem;
-            margin-bottom: 40px;
+            font-size: 1.15rem;
             color: #555;
             font-style: italic;
         }
 
         .details-section {
-            border-top: 1px solid #d4af37;
-            border-bottom: 1px solid #d4af37;
-            padding: 30px 10px;
-            margin-bottom: 40px;
+            padding: 10px;
         }
 
         .details-section h2 {
@@ -199,18 +212,17 @@
         }
 
         .event {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         .event:last-child {
             margin-bottom: 0;
         }
 
         .event h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
             color: #333;
             font-family: 'Great Vibes', cursive;
-            font-size: 2.2rem;
             font-weight: normal;
         }
 
@@ -230,6 +242,8 @@
             border-bottom: 1px dashed #8c1c2b;
             padding-bottom: 2px;
             transition: color 0.3s, border-bottom 0.3s;
+            margin-top: 5px;
+            font-size: 0.95rem;
         }
 
         .map-link:hover {
@@ -237,33 +251,41 @@
             border-bottom: 1px dashed #d4af37;
         }
 
+        /* Stili specifici Dress Code */
+        .dress-code-icon {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        
+        .dress-code-text {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        .highlight-cursive {
+            display: block;
+            margin-top: 15px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: #8c1c2b;
+        }
+
         .rsvp-section {
-            padding: 10px 0 20px 0;
+            padding: 10px 0 10px 0;
         }
 
         .rsvp-section h2 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 10px;
             color: #222;
         }
-
-        .btn-rsvp {
-            display: inline-block;
-            background-color: #8c1c2b;
-            color: #fff;
-            padding: 14px 30px;
-            text-decoration: none;
+        
+        .rsvp-section p {
             font-size: 1.1rem;
-            letter-spacing: 1px;
-            border-radius: 3px;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-            border: 1px solid #6a0d18;
+            color: #555;
         }
 
-        .btn-rsvp:hover {
-            background-color: #6a0d18;
-        }
     </style>
 </head>
 <body>
@@ -282,38 +304,72 @@
     <div class="card-container">
         <div class="card">
             <div class="card-inner">
-                <div class="laurel-icon fade-in">🎓</div>
-                <h1 class="cursive-title fade-in">Ce l'ho fatta.</h1>
-                <p class="subtitle fade-in">Dopo notti in bianco, esami rimandati e troppi caffè, il grande giorno è arrivato.<br><br>Voglio festeggiarlo con le persone che ci sono sempre state — cioè voi.</p>
                 
-                <div class="name fade-in">Marco Lentini</div>
-                <div class="degree fade-in">Laurea in Ingegneria Informatica<br>Università degli Studi di Catania</div>
+                <!-- SEZIONE INTRO -->
+                <h1 class="cursive-title fade-in">Ce l'ho fatta!</h1>
+                
+                <div class="video-container fade-in">
+                    <!-- Rimosso l'autoplay, aggiunto un ID per gestirlo tramite JS -->
+                    <video id="laurea-video" src="video.mp4" loop muted playsinline preload="auto"></video>
+                </div>
 
+                <p class="subtitle fade-in">
+                    Dopo giornate passate a studiare, esami rimandati e tanta ansia, il grande giorno è arrivato!<br><br>
+                    Voglio festeggiarlo con le persone che ci sono sempre state… spero non mancherai!
+                </p>
+
+                <hr class="section-divider fade-in">
+                
+                <!-- SEZIONE NOME E LAUREA -->
+                <div class="fade-in">
+                    <div class="name">Sabrina Spalice</div>
+                    <div class="degree">Laurea in Biologia<br>Università degli Studi di Napoli Federico II</div>
+                </div>
+
+                <hr class="section-divider fade-in">
+
+                <!-- SEZIONE EVENTI -->
                 <div class="details-section fade-in">
                     <h2>Si brinda insieme</h2>
                     
                     <div class="event">
-                        <h3>Discussione Tesi</h3>
-                        <p>Ore 15:00<br>Chi vuole è il benvenuto!</p>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Università+degli+Studi+di+Catania" target="_blank" class="map-link">
-                            📍 Aula Magna, Università di Catania
+                        <h3>Proclamazione</h3>
+                        <p>24 settembre 2026<br>Orario: da definire</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Complesso+di+Monte+Sant'Angelo+Universita+Federico+II+Napoli" target="_blank" class="map-link">
+                            📍 Complesso di Monte Sant'Angelo | Università Federico II<br>Via Vicinale Cupa Cintia, 26, 80126 Napoli NA
                         </a>
                     </div>
 
-                    <div class="event" style="margin-top: 30px;">
+                    <div class="event" style="margin-top: 35px;">
                         <h3>Festa</h3>
-                        <p>Sabato 12 Settembre 2026, dalle 20:00</p>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Via+dei+Mille+24+Catania" target="_blank" class="map-link">
-                            📍 Terrazza Belvedere<br>Via dei Mille 24, Catania
+                        <p>Sabato 3 ottobre 2026<br>20:00-20:30 i ritardi non sono ammessi.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Truth+Events+Via+Italia+63+Pozzuoli" target="_blank" class="map-link">
+                            📍 Truth Events<br>Via Italia, 63, 80078 Pozzuoli NA
                         </a>
                     </div>
                 </div>
 
-                <div class="rsvp-section fade-in">
-                    <h2>Fammi sapere se ci sarai.</h2>
-                    <p>Conferma la tua presenza entro l'1 Settembre</p>
-                    <a href="#" class="btn-rsvp">Conferma la tua presenza</a>
+                <hr class="section-divider fade-in">
+
+                <!-- SEZIONE DRESS CODE -->
+                <div class="details-section fade-in">
+                    <h2>Dress Code</h2>
+                    <div class="dress-code-icon">✨ 🥂 ✨</div>
+                    <p class="dress-code-text">
+                        Lasciati guidare dall'atmosfera magica della serata...<br>
+                        Vorrei che fosse un'occasione speciale per sentirci tutti al top! Ti invito con gioia a indossare il tuo abito elegante preferito, quello che ti fa sentire unico.<br>
+                        <span class="highlight-cursive">Preparati a brillare!</span>
+                    </p>
                 </div>
+
+                <hr class="section-divider fade-in">
+
+                <!-- SEZIONE RSVP -->
+                <div class="rsvp-section fade-in">
+                    <h2>Fammi sapere se ci sarai!</h2>
+                    <p>Conferma la tua presenza entro il 15 settembre.</p>
+                </div>
+
             </div>
         </div>
     </div>
@@ -328,6 +384,12 @@
             setTimeout(() => {
                 document.body.style.overflow = 'auto';
                 
+                // Avvia il video solo adesso che la pagina si è svelata
+                const video = document.getElementById('laurea-video');
+                if(video) {
+                    video.play();
+                }
+
                 // Seleziona tutti gli elementi con classe fade-in
                 const fadeElements = document.querySelectorAll('.fade-in');
                 
