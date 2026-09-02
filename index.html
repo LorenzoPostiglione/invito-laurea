@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invito di Laurea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            background-color: #3b1016; 
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* --- SEZIONE BUSTA INTERATTIVA --- */
+        #envelope-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #3b1016;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease 1.5s; 
+        }
+
+        .envelope {
+            width: 320px;
+            height: 200px;
+            background-color: #6a0d18; 
+            position: relative;
+            perspective: 1000px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            width: 300px;
+            height: 180px;
+            background-color: #fcfaf5;
+            z-index: 1;
+            transition: transform 0.8s ease 0.6s; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .front-bottom {
+            position: absolute; bottom: 0; left: 0; z-index: 2;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 120px solid #8c1c2b;
+        }
+        .front-left {
+            position: absolute; top: 0; left: 0; z-index: 2;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-left: 160px solid #9e2031;
+        }
+        .front-right {
+            position: absolute; top: 0; right: 0; z-index: 2;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-right: 160px solid #9e2031;
+        }
+
+        .top-flap {
+            position: absolute; top: 0; left: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 115px solid #a82335;
+            z-index: 3;
+            transform-origin: top;
+            transition: transform 0.6s ease, z-index 0s 0.6s;
+        }
+
+        .seal {
+            position: absolute; top: 115px; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, #d4af37, #aa8222);
+            border-radius: 50%;
+            z-index: 4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            border: 2px solid #ffd700;
+            transition: opacity 0.3s ease;
+        }
+
+        #envelope-wrapper.open .top-flap {
+            transform: rotateX(180deg);
+            z-index: 0; 
+        }
+        #envelope-wrapper.open .seal {
+            opacity: 0;
+        }
+        #envelope-wrapper.open .letter {
+            transform: translateY(-250px) scale(1.1); 
+        }
+        #envelope-wrapper.open {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- SEZIONE CONTENUTO INVITO --- */
+        .card-container {
+            padding: 40px 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #fcfaf5;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            padding: 15px;
+            position: relative;
+        }
+
+        .card-inner {
+            border: 1px solid #d4af37; 
+            padding: 50px 20px;
+        }
+
+        /* ANIMAZIONI DI ENTRATA TESTO */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stili Testo */
+        .laurel-icon {
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+
+        h1.cursive-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            margin: 10px 0 20px 0;
+            color: #8c1c2b;
+            font-weight: normal;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #222;
+            letter-spacing: 1px;
+        }
+
+        .degree {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: #555;
+            font-style: italic;
+        }
+
+        .details-section {
+            border-top: 1px solid #d4af37;
+            border-bottom: 1px solid #d4af37;
+            padding: 30px 10px;
+            margin-bottom: 40px;
+        }
+
+        .details-section h2 {
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #8c1c2b;
+            text-transform: uppercase;
+        }
+
+        .event {
+            margin-bottom: 25px;
+        }
+        .event:last-child {
+            margin-bottom: 0;
+        }
+
+        .event h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #333;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            font-weight: normal;
+        }
+
+        .event p {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .map-link {
+            display: inline-block;
+            color: #8c1c2b;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dashed #8c1c2b;
+            padding-bottom: 2px;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        .map-link:hover {
+            color: #d4af37; 
+            border-bottom: 1px dashed #d4af37;
+        }
+
+        .rsvp-section {
+            padding: 10px 0 20px 0;
+        }
+
+        .rsvp-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .btn-rsvp {
+            display: inline-block;
+            background-color: #8c1c2b;
+            color: #fff;
+            padding: 14px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border-radius: 3px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+            border: 1px solid #6a0d18;
+        }
+
+        .btn-rsvp:hover {
+            background-color: #6a0d18;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope">
+            <div class="letter"></div>
+            <div class="front-left"></div>
+            <div class="front-right"></div>
+            <div class="front-bottom"></div>
+            <div class="top-flap"></div>
+            <div class="seal"></div>
+        </div>
+    </div>
+
+    <div class="card-container">
+        <div class="card">
+            <div class="card-inner">
+                <div class="laurel-icon fade-in">🎓</div>
+                <h1 class="cursive-title fade-in">Ce l'ho fatta.</h1>
+                <p class="subtitle fade-in">Dopo notti in bianco, esami rimandati e troppi caffè, il grande giorno è arrivato.<br><br>Voglio festeggiarlo con le persone che ci sono sempre state — cioè voi.</p>
+                
+                <div class="name fade-in">Marco Lentini</div>
+                <div class="degree fade-in">Laurea in Ingegneria Informatica<br>Università degli Studi di Catania</div>
+
+                <div class="details-section fade-in">
+                    <h2>Si brinda insieme</h2>
+                    
+                    <div class="event">
+                        <h3>Discussione Tesi</h3>
+                        <p>Ore 15:00<br>Chi vuole è il benvenuto!</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Università+degli+Studi+di+Catania" target="_blank" class="map-link">
+                            📍 Aula Magna, Università di Catania
+                        </a>
+                    </div>
+
+                    <div class="event" style="margin-top: 30px;">
+                        <h3>Festa</h3>
+                        <p>Sabato 12 Settembre 2026, dalle 20:00</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Via+dei+Mille+24+Catania" target="_blank" class="map-link">
+                            📍 Terrazza Belvedere<br>Via dei Mille 24, Catania
+                        </a>
+                    </div>
+                </div>
+
+                <div class="rsvp-section fade-in">
+                    <h2>Fammi sapere se ci sarai.</h2>
+                    <p>Conferma la tua presenza entro l'1 Settembre</p>
+                    <a href="#" class="btn-rsvp">Conferma la tua presenza</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            document.getElementById('envelope-wrapper').classList.add('open');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.body.style.overflow = 'hidden';
+            
+            // Attendi che l'animazione della busta finisca (2.5 secondi)
+            setTimeout(() => {
+                document.body.style.overflow = 'auto';
+                
+                // Seleziona tutti gli elementi con classe fade-in
+                const fadeElements = document.querySelectorAll('.fade-in');
+                
+                // Fagli apparire in sequenza con un ritardo di 400ms tra l'uno e l'altro
+                fadeElements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                    }, index * 400); 
+                });
+                
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
